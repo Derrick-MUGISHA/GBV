@@ -10,7 +10,7 @@ import {
 } from 'lucide-react';
 
 const About = () => {
-  const [activeValue, setActiveValue] = useState(null);
+  const [activeValue, setActiveValue] = useState<number | null>(null);
 
   const coreValues = [
     {
@@ -62,7 +62,7 @@ const About = () => {
               transition={{ delay: 0.5, duration: 0.6 }}
               className="italic text-xl md:text-2xl max-w-2xl mx-auto"
             >
-              "You are not alone, there is help and hope for a better tomorrow."
+              &quot;You are not alone, there is help and hope for a better tomorrow.&quot;
             </motion.blockquote>
           </div>
         </div>
@@ -78,7 +78,7 @@ const About = () => {
         >
           <h2 className="text-3xl font-bold text-violet-600 mb-4">Our Mission</h2>
           <p className="text-gray-700">
-            To end gender-based violence by advocating for women's and girls' rights, 
+            To end gender-based violence by advocating for women&apos;s and girls&apos; rights, 
             ensuring equality through education, and empowering survivors to seek justice and support.
           </p>
         </motion.div>
@@ -110,7 +110,7 @@ const About = () => {
                 whileHover={{ scale: 1.05 }}
                 className={`bg-purple-50 p-6 rounded-lg shadow-md transition-all duration-300 
                   ${activeValue === index ? 'ring-4 ring-violet-300' : ''}`}
-                onClick={() => setActiveValue(activeValue === index ? null : index)}
+                  onClick={() => setActiveValue(activeValue === index ? null : index as number | null)}
               >
                 <div className="flex items-center mb-4">
                   <value.icon className="text-violet-500 mr-4" size={40} />
