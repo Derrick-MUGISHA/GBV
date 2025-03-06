@@ -10,13 +10,22 @@ import {
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
+import { LoginForm } from "@/components/ui/login-form";
+import { SignInForm } from "@/components/ui/SignIn-form";
 
-const subpage1 = ['Volunteer', 'Donate', 'Partnership'];
-const subpage2 = ['How it works', 'Get Started', 'Help'];
+// Define types for dropdown props
+interface DesktopDropdownProps {
+  title: string;
+  items: string[];
+}
 
-function DesktopDropdown({ title, items }: { title: string; items: string[] }) {
+const subpage1 = ["Volunteer", "Donate", "Partnership"];
+const subpage2 = ["How it works", "Get Started", "Help"];
+
+function DesktopDropdown({ title, items }: DesktopDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const parentPath = title.toLowerCase().replace(/\s+/g, '-');
+  const parentPath = title.toLowerCase().replace(/\s+/g, "-");
 
   return (
     <div
@@ -36,11 +45,9 @@ function DesktopDropdown({ title, items }: { title: string; items: string[] }) {
         <DropdownMenuContent
           className="bg-white text-black rounded-lg shadow-lg w-48 border-none mt-2"
           align="start"
-          onMouseEnter={() => setIsOpen(true)}
-          onMouseLeave={() => setIsOpen(false)}
         >
           {items.map((item) => {
-            const itemPath = item.toLowerCase().replace(/\s+/g, '-');
+            const itemPath = item.toLowerCase().replace(/\s+/g, "-");
             return (
               <DropdownMenuItem
                 key={item}
@@ -61,6 +68,8 @@ function DesktopDropdown({ title, items }: { title: string; items: string[] }) {
 function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
 
   const toggleDropdown = (dropdownName: string) => {
     setOpenDropdown(openDropdown === dropdownName ? null : dropdownName);
@@ -70,19 +79,32 @@ function Header() {
     <div className="relative">
       <header className="bg-[#b062b0d7] flex justify-between items-center px-4 h-20 w-full text-white">
         <div className="w-32 ml-4 md:ml-8">
-          <img src={gray.src} alt="gray-logo" className="w-full" />
+          <Image
+            src={gray.src}
+            alt="gray-logo"
+            className="w-full"
+            width={100}
+            height={100}
+            priority
+          />
         </div>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex flex-1 justify-center">
           <ul className="flex items-center gap-4">
             <li>
-              <Link href="/" className="px-4 py-2 hover:text-gray-300 transition-colors">
+              <Link
+                href="/"
+                className="px-4 py-2 hover:text-gray-300 transition-colors"
+              >
                 Home
               </Link>
             </li>
             <li>
-              <Link href="/about" className="px-4 py-2 hover:text-gray-300 transition-colors">
+              <Link
+                href="/about"
+                className="px-4 py-2 hover:text-gray-300 transition-colors"
+              >
                 About Us
               </Link>
             </li>
@@ -90,7 +112,10 @@ function Header() {
               <DesktopDropdown title="Our Solution" items={subpage2} />
             </li>
             <li>
-              <Link href="/resources" className="px-4 py-2 hover:text-gray-300 transition-colors">
+              <Link
+                href="/resources"
+                className="px-4 py-2 hover:text-gray-300 transition-colors"
+              >
                 Resources
               </Link>
             </li>
@@ -98,7 +123,10 @@ function Header() {
               <DesktopDropdown title="Get Involved" items={subpage1} />
             </li>
             <li>
-              <Link href="/contact" className="px-4 py-2 hover:text-gray-300 transition-colors">
+              <Link
+                href="/contact"
+                className="px-4 py-2 hover:text-gray-300 transition-colors"
+              >
                 Contact
               </Link>
             </li>
@@ -107,16 +135,21 @@ function Header() {
 
         {/* Desktop Auth Buttons */}
         <div className="hidden md:flex items-center gap-4 mr-8">
-          <Link href="/login">
-            <Button variant="ghost" className="text-white hover:bg-white/20">
-              Login
-            </Button>
-          </Link>
-          <Link href="/signup">
-            <Button variant="secondary" className="bg-white text-[#b062b0] hover:bg-gray-100">
-              Sign Up
-            </Button>
-          </Link>
+          <Button
+            variant="ghost"
+            className="text-white hover:bg-white/20"
+            onClick={() => setIsLoginModalOpen(true)}
+          >
+            Login
+          </Button>
+
+          <Button
+            onClick={() => setIsRegisterModalOpen(true)}
+            variant="secondary"
+            className="bg-white text-[#b062b0] hover:bg-gray-100"
+          >
+            Sign Up
+          </Button>
           <Link href="/subscription">
             <Button className="bg-purple-700 hover:bg-purple-800 text-white">
               Subscribe
@@ -125,37 +158,104 @@ function Header() {
         </div>
 
         {/* Mobile Menu Toggle */}
-        <button 
+        <button
           className="md:hidden text-2xl mr-4 p-2"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          aria-label="Toggle mobile menu"
         >
           {isMobileMenuOpen ? <FiX /> : <FiMenu />}
         </button>
       </header>
+
+      {/* Login Modal */}
+      {isLoginModalOpen && (
+        <div
+          className="fixed inset-0  bg-opacity-50 z-[100] flex items-center justify-center"
+          onClick={() => setIsLoginModalOpen(false)}
+          role="dialog"
+          aria-modal="true"
+        >
+          <div
+            className="p-8 rounded-lg relative w-full max-w-md mx-4"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <Button
+             className="bg-pink-500 absolute top-4 right-4 text-white p-2 rounded-full focus:outline-none"
+             onClick={() => setIsLoginModalOpen(false)}
+             aria-label="Close login modal"
+            >
+              <FiX size={24} />
+            </Button>
+            <LoginForm />
+          </div>
+        </div>
+      )}
+
+      {/* Registration Modal */}
+      {isRegisterModalOpen && (
+        <div
+          className="fixed inset-0  bg-opacity-50 z-[100] flex items-center justify-center"
+          onClick={() => setIsRegisterModalOpen(false)}
+          role="dialog"
+          aria-modal="true"
+        >
+          <div
+            className="p-8 rounded-lg relative w-full max-w-md mx-4"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <Button
+              className="bg-pink-500 absolute top-4 right-4 text-white p-2 rounded-full focus:outline-none"
+              onClick={() => setIsRegisterModalOpen(false)}
+              aria-label="Close registration modal"
+            >
+              <FiX size={24} />
+            </Button>
+            <SignInForm />
+          </div>
+        </div>
+      )}
 
       {/* Mobile Navigation */}
       {isMobileMenuOpen && (
         <div className="md:hidden absolute w-full bg-[#b062b0] text-white z-50">
           <div className="p-4 border-t border-white/20">
             <ul className="space-y-4">
-              <li><Link href="/" className="block py-2">Home</Link></li>
-              <li><Link href="/about" className="block py-2">About Us</Link></li>
               <li>
-                <button 
+                <Link
+                  href="/"
+                  className="block py-2"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/about"
+                  className="block py-2"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  About Us
+                </Link>
+              </li>
+              <li>
+                <Button
                   className="w-full text-left py-2"
-                  onClick={() => toggleDropdown('solutions')}
+                  onClick={() => toggleDropdown("solutions")}
+                  aria-expanded={openDropdown === "solutions"}
                 >
                   Our Solution ▾
-                </button>
-                {openDropdown === 'solutions' && (
+                </Button>
+                {openDropdown === "solutions" && (
                   <div className="ml-4 bg-white/10 rounded-lg p-2">
                     {subpage2.map((item) => {
-                      const itemPath = item.toLowerCase().replace(/\s+/g, '-');
+                      const itemPath = item.toLowerCase().replace(/\s+/g, "-");
                       return (
                         <Link
                           key={item}
                           href={`/our-solution/${itemPath}`}
                           className="block py-2 hover:bg-white/20 rounded px-2"
+                          onClick={() => setIsMobileMenuOpen(false)}
                         >
                           {item}
                         </Link>
@@ -164,23 +264,33 @@ function Header() {
                   </div>
                 )}
               </li>
-              <li><Link href="/resources" className="block py-2">Resources</Link></li>
               <li>
-                <button 
+                <Link
+                  href="/resources"
+                  className="block py-2"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Resources
+                </Link>
+              </li>
+              <li>
+                <Button
                   className="w-full text-left py-2"
-                  onClick={() => toggleDropdown('involved')}
+                  onClick={() => toggleDropdown("involved")}
+                  aria-expanded={openDropdown === "involved"}
                 >
                   Get Involved ▾
-                </button>
-                {openDropdown === 'involved' && (
+                </Button>
+                {openDropdown === "involved" && (
                   <div className="ml-4 bg-white/10 rounded-lg p-2">
                     {subpage1.map((item) => {
-                      const itemPath = item.toLowerCase().replace(/\s+/g, '-');
+                      const itemPath = item.toLowerCase().replace(/\s+/g, "-");
                       return (
                         <Link
                           key={item}
                           href={`/get-involved/${itemPath}`}
                           className="block py-2 hover:bg-white/20 rounded px-2"
+                          onClick={() => setIsMobileMenuOpen(false)}
                         >
                           {item}
                         </Link>
@@ -189,23 +299,40 @@ function Header() {
                   </div>
                 )}
               </li>
-              <li><Link href="/contact" className="block py-2">Contact</Link></li>
+              <li>
+                <Link
+                  href="/contact"
+                  className="block py-2"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Contact
+                </Link>
+              </li>
               <li className="pt-4 space-y-2">
-                <Link 
-                  href="/login" 
-                  className="block text-center py-3 bg-white/20 rounded hover:bg-white/30"
+                <Button
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    setIsLoginModalOpen(true);
+                  }}
+                  className="w-full text-white hover:bg-white/20"
+                  variant="ghost"
                 >
                   Login
-                </Link>
-                <Link 
-                  href="/signup" 
-                  className="block text-center py-3 bg-white text-[#b062b0] rounded hover:bg-gray-100"
+                </Button>
+                <Button
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    setIsRegisterModalOpen(true);
+                  }}
+                  className="w-full  bg-white text-[#b062b0] rounded hover:bg-gray-100"
+                  variant="ghost"
                 >
                   Sign Up
-                </Link>
-                <Link 
-                  href="/subscription" 
+                </Button>
+                <Link
+                  href="/subscription"
                   className="block text-center py-3 bg-purple-700 rounded hover:bg-purple-800"
+                  onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Subscribe
                 </Link>
