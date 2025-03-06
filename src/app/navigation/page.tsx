@@ -12,7 +12,7 @@ import {
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { LoginForm } from "@/components/ui/login-form";
-import { SignInForm } from "@/components/ui/SignIn-form";
+import { SignUpForm } from "@/components/ui/SignIn-form";
 
 // Define types for dropdown props
 interface DesktopDropdownProps {
@@ -210,7 +210,7 @@ function Header() {
             >
               <FiX size={24} />
             </Button>
-            <SignInForm />
+            <SignUpForm />
           </div>
         </div>
       )}

@@ -1,5 +1,5 @@
 import { GalleryVerticalEnd } from "lucide-react";
-import { SignInForm } from "@/components/ui/SignIn-form"; // Corrected spelling of 'signUpForm'
+import { SignUpForm } from "@/components/ui/SignIn-form"; // Corrected spelling of 'signUpForm'
 
 export default function LoginPage() {
   return (
@@ -11,7 +11,7 @@ export default function LoginPage() {
           </div>
           Acme Inc.
         </a>
-        <SignInForm /> {/* You can replace this with SignUpForm if needed */}
+        <SignUpForm /> {/* You can replace this with SignUpForm if needed */}
       </div>
     </div>
   );
