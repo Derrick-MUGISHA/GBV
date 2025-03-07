@@ -5,8 +5,8 @@ import { ArrowDown, Shield, Heart, HelpCircle } from "lucide-react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@/app/firebase/config";
 import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import { signOut } from "firebase/auth";
+// import { Button } from "@/components/ui/button";
+// import { signOut } from "firebase/auth";
 
 
 const heroTexts = [
@@ -83,19 +83,35 @@ function Home() {
 
 const [user] = useAuthState(auth);
 const router = useRouter();
+const [userSession, setUserSession] = useState(sessionStorage.getItem('user'));
 
-const userSession = sessionStorage.getItem('user');
-console.log(user);
+useEffect(() => {
+  // Check if we are in the browser
+  if (typeof window !== "undefined") {
+    const session = sessionStorage.getItem("user");
+    setUserSession(session);
+  }
+}, []);
 
-if ( !user && !userSession ) {
-  router.push('/loginFrom');
-}
+useEffect(() => {
+  if (!user && !userSession) {
+    router.push('/Wc');
+  }
+}, [user, userSession, router]);
 
   return (
     <div className="w-full min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-      <Button onClick={() => {signOut(auth)
-        sessionStorage.removeItem('user')
-      }}>Sign Out</Button>
+      {/* {user || userSession ? (
+        <Button 
+          onClick={() => {
+            signOut(auth);
+            sessionStorage.removeItem('user');
+            router.push('/');
+          }}
+        >
+          Sign Out
+        </Button>
+      ) : null} */}
       {/* Hero Section */}
       <div className="relative w-full min-h-screen flex items-center justify-center overflow-hidden">
         {/* Animated Background */}

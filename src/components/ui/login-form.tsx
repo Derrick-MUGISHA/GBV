@@ -50,7 +50,7 @@ export function LoginForm({
         // Redirect after 2 seconds
         setTimeout(() => router.push('/dashboard'), 1000);
       } else {
-        setError("Invalid email or password");
+        setError("Invalid email or password"); 
       }
     } catch (error) {
       console.error("Login error:", error);

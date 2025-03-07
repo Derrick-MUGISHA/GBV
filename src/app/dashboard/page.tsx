@@ -1,11 +1,11 @@
-import React from 'react'
+"use client"
 
-function page() {
+export default function page() {
   return (
     <div>
-      <h1 className='text-2xl'>Dashboard</h1>
+      <h1>well come to dashboard</h1>
     </div>
   )
 }
 
-export default page
+

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import gray from "@/app/assets/GRAY.png";
 import Link from "next/link";
 import { FiMenu, FiX } from "react-icons/fi";
@@ -13,6 +13,11 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { LoginForm } from "@/components/ui/login-form";
 import { SignUpForm } from "@/components/ui/SignIn-form";
+import { signOut } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "@/app/firebase/config"; 
+import router from "next/dist/client/router";
+
 
 // Define types for dropdown props
 interface DesktopDropdownProps {
@@ -70,7 +75,29 @@ function Header() {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
+  const [user] = useAuthState(auth);
+  const userSession = sessionStorage.getItem('user');
+  const [isAuthenticated, setIsAuthenticated] = useState(user || userSession);
 
+  // sessionStorage 
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const userSession = sessionStorage.getItem('user');
+      setIsAuthenticated(user || userSession);
+    }
+  }, [user]);
+
+
+  // Handle navigation
+
+  const handleLogout = () => {
+    signOut(auth);
+    sessionStorage.removeItem('user');
+    router.push('/');
+  };
+
+  //  navigation
   const toggleDropdown = (dropdownName: string) => {
     setOpenDropdown(openDropdown === dropdownName ? null : dropdownName);
   };
@@ -134,28 +161,40 @@ function Header() {
         </nav>
 
         {/* Desktop Auth Buttons */}
-        <div className="hidden md:flex items-center gap-4 mr-8">
-          <Button
-            variant="ghost"
-            className="text-white hover:bg-white/20"
-            onClick={() => setIsLoginModalOpen(true)}
-          >
-            Login
-          </Button>
-
-          <Button
-            onClick={() => setIsRegisterModalOpen(true)}
-            variant="secondary"
-            className="bg-white text-[#b062b0] hover:bg-gray-100"
-          >
-            Sign Up
-          </Button>
+       <div className="hidden md:flex items-center gap-4 mr-8">
+          {!isAuthenticated ? (
+            <>
+              <Button
+                variant="ghost"
+                className="text-white hover:bg-white/20"
+                onClick={() => setIsLoginModalOpen(true)}
+              >
+                Login
+              </Button>
+              <Button
+                onClick={() => setIsRegisterModalOpen(true)}
+                variant="secondary"
+                className="bg-white text-[#b062b0] hover:bg-gray-100"
+              >
+                Sign Up
+              </Button>
+            </>
+          ) : (
+            <Button
+              onClick={handleLogout}
+              variant="ghost"
+              className="text-white hover:bg-white/20"
+            >
+              Logout
+            </Button>
+          )}
           <Link href="/subscription">
             <Button className="bg-purple-700 hover:bg-purple-800 text-white">
               Subscribe
             </Button>
           </Link>
         </div>
+
 
         {/* Mobile Menu Toggle */}
         <button
@@ -309,26 +348,41 @@ function Header() {
                 </Link>
               </li>
               <li className="pt-4 space-y-2">
-                <Button
-                  onClick={() => {
-                    setIsMobileMenuOpen(false);
-                    setIsLoginModalOpen(true);
-                  }}
-                  className="w-full text-white hover:bg-white/20"
-                  variant="ghost"
-                >
-                  Login
-                </Button>
-                <Button
-                  onClick={() => {
-                    setIsMobileMenuOpen(false);
-                    setIsRegisterModalOpen(true);
-                  }}
-                  className="w-full  bg-white text-[#b062b0] rounded hover:bg-gray-100"
-                  variant="ghost"
-                >
-                  Sign Up
-                </Button>
+              {!isAuthenticated ? (
+                    <>
+                      <Button
+                        onClick={() => {
+                          setIsMobileMenuOpen(false);
+                          setIsLoginModalOpen(true);
+                        }}
+                        className="w-full text-white hover:bg-white/20"
+                        variant="ghost"
+                      >
+                        Login
+                      </Button>
+                      <Button
+                        onClick={() => {
+                          setIsMobileMenuOpen(false);
+                          setIsRegisterModalOpen(true);
+                        }}
+                        className="w-full bg-white text-[#b062b0] rounded hover:bg-gray-100"
+                        variant="ghost"
+                      >
+                        Sign Up
+                      </Button>
+                    </>
+                  ) : (
+                    <Button
+                      onClick={() => {
+                        handleLogout();
+                        setIsMobileMenuOpen(false);
+                      }}
+                      className="w-full text-white hover:bg-white/20"
+                      variant="ghost"
+                    >
+                      Logout
+                    </Button>
+                  )}
                 <Link
                   href="/subscription"
                   className="block text-center py-3 bg-purple-700 rounded hover:bg-purple-800"
