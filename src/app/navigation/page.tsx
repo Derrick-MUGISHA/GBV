@@ -15,21 +15,19 @@ import { LoginForm } from "@/components/ui/login-form";
 import { SignUpForm } from "@/components/ui/SignIn-form";
 import { signOut } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "@/app/firebase/config"; 
+import { auth } from "@/app/firebase/config";
 import { useRouter } from "next/navigation";
 
-
-
-// Define types for dropdown props
 interface DesktopDropdownProps {
   title: string;
   items: string[];
+  onLinkClick: (e: React.MouseEvent) => boolean;
 }
 
 const subpage1 = ["Volunteer", "Donate", "Partnership"];
 const subpage2 = ["How it works", "Get Started", "Help"];
 
-function DesktopDropdown({ title, items }: DesktopDropdownProps) {
+function DesktopDropdown({ title, items, onLinkClick }: DesktopDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const parentPath = title.toLowerCase().replace(/\s+/g, "-");
 
@@ -59,7 +57,11 @@ function DesktopDropdown({ title, items }: DesktopDropdownProps) {
                 key={item}
                 className="hover:bg-gray-100 px-4 py-2.5 cursor-pointer"
               >
-                <Link href={`/${parentPath}/${itemPath}`} className="w-full">
+                <Link
+                  href={`/${parentPath}/${itemPath}`}
+                  className="w-full"
+                  onClick={onLinkClick}
+                >
                   {item}
                 </Link>
               </DropdownMenuItem>
@@ -71,37 +73,40 @@ function DesktopDropdown({ title, items }: DesktopDropdownProps) {
   );
 }
 
-function Header() {
+function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [user] = useAuthState(auth);
-  const userSession = sessionStorage.getItem('user');
+  const userSession = sessionStorage.getItem("user");
   const [isAuthenticated, setIsAuthenticated] = useState(user || userSession);
-
-  // sessionStorage 
+  const router = useRouter();
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const userSession = sessionStorage.getItem('user');
+      const userSession = sessionStorage.getItem("user");
       setIsAuthenticated(user || userSession);
     }
   }, [user]);
 
-
-  // Handle navigation
-  const router = useRouter();
-
   const handleLogout = () => {
     signOut(auth);
-    sessionStorage.removeItem('user');
-    router.push('Wc');
+    sessionStorage.removeItem("user");
+    router.push("Wc");
   };
 
-  //  navigation
   const toggleDropdown = (dropdownName: string) => {
     setOpenDropdown(openDropdown === dropdownName ? null : dropdownName);
+  };
+
+  const handleNavigation = (e: React.MouseEvent) => {
+    if (!isAuthenticated) {
+      e.preventDefault();
+      setIsLoginModalOpen(true);
+      return false;
+    }
+    return true;
   };
 
   return (
@@ -125,6 +130,7 @@ function Header() {
               <Link
                 href="dashboard"
                 className="px-4 py-2 hover:text-gray-300 transition-colors"
+                onClick={handleNavigation}
               >
                 Home
               </Link>
@@ -133,28 +139,39 @@ function Header() {
               <Link
                 href="/about"
                 className="px-4 py-2 hover:text-gray-300 transition-colors"
+                onClick={handleNavigation}
               >
                 About Us
               </Link>
             </li>
             <li>
-              <DesktopDropdown title="Our Solution" items={subpage2} />
+              <DesktopDropdown
+                title="Our Solution"
+                items={subpage2}
+                onLinkClick={handleNavigation}
+              />
             </li>
             <li>
               <Link
                 href="/resources"
                 className="px-4 py-2 hover:text-gray-300 transition-colors"
+                onClick={handleNavigation}
               >
                 Resources
               </Link>
             </li>
             <li>
-              <DesktopDropdown title="Get Involved" items={subpage1} />
+              <DesktopDropdown
+                title="Get Involved"
+                items={subpage1}
+                onLinkClick={handleNavigation}
+              />
             </li>
             <li>
               <Link
                 href="/contact"
                 className="px-4 py-2 hover:text-gray-300 transition-colors"
+                onClick={handleNavigation}
               >
                 Contact
               </Link>
@@ -163,7 +180,7 @@ function Header() {
         </nav>
 
         {/* Desktop Auth Buttons */}
-       <div className="hidden md:flex items-center gap-4 mr-8">
+        <div className="hidden md:flex items-center gap-4 mr-8">
           {!isAuthenticated ? (
             <>
               <Button
@@ -190,13 +207,12 @@ function Header() {
               Logout
             </Button>
           )}
-          <Link href="/subscription">
+          <Link href="/subscription" onClick={handleNavigation}>
             <Button className="bg-purple-700 hover:bg-purple-800 text-white">
               Subscribe
             </Button>
           </Link>
         </div>
-
 
         {/* Mobile Menu Toggle */}
         <button
@@ -217,13 +233,13 @@ function Header() {
           aria-modal="true"
         >
           <div
-            className="p-8 rounded-lg relative w-full max-w-md mx-4"
+            className="p-8 bg-white rounded-lg relative w-full max-w-md mx-4"
             onClick={(e) => e.stopPropagation()}
           >
             <Button
-             className="bg-pink-500 absolute top-4 right-4 text-white p-2 rounded-full focus:outline-none"
-             onClick={() => setIsLoginModalOpen(false)}
-             aria-label="Close login modal"
+              className="bg-pink-500 absolute top-4 right-4 text-white p-2 rounded-full focus:outline-none"
+              onClick={() => setIsLoginModalOpen(false)}
+              aria-label="Close login modal"
             >
               <FiX size={24} />
             </Button>
@@ -241,7 +257,7 @@ function Header() {
           aria-modal="true"
         >
           <div
-            className="p-8 rounded-lg relative w-full max-w-md mx-4"
+            className="p-8 bg-white rounded-lg relative w-full max-w-md mx-4"
             onClick={(e) => e.stopPropagation()}
           >
             <Button
@@ -265,7 +281,10 @@ function Header() {
                 <Link
                   href="/"
                   className="block py-2"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={(e) => {
+                    const allowed = handleNavigation(e);
+                    if (allowed) setIsMobileMenuOpen(false);
+                  }}
                 >
                   Home
                 </Link>
@@ -274,7 +293,10 @@ function Header() {
                 <Link
                   href="/about"
                   className="block py-2"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={(e) => {
+                    const allowed = handleNavigation(e);
+                    if (allowed) setIsMobileMenuOpen(false);
+                  }}
                 >
                   About Us
                 </Link>
@@ -296,7 +318,10 @@ function Header() {
                           key={item}
                           href={`/our-solution/${itemPath}`}
                           className="block py-2 hover:bg-white/20 rounded px-2"
-                          onClick={() => setIsMobileMenuOpen(false)}
+                          onClick={(e) => {
+                            const allowed = handleNavigation(e);
+                            if (allowed) setIsMobileMenuOpen(false);
+                          }}
                         >
                           {item}
                         </Link>
@@ -309,7 +334,10 @@ function Header() {
                 <Link
                   href="/resources"
                   className="block py-2"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={(e) => {
+                    const allowed = handleNavigation(e);
+                    if (allowed) setIsMobileMenuOpen(false);
+                  }}
                 >
                   Resources
                 </Link>
@@ -331,7 +359,10 @@ function Header() {
                           key={item}
                           href={`/get-involved/${itemPath}`}
                           className="block py-2 hover:bg-white/20 rounded px-2"
-                          onClick={() => setIsMobileMenuOpen(false)}
+                          onClick={(e) => {
+                            const allowed = handleNavigation(e);
+                            if (allowed) setIsMobileMenuOpen(false);
+                          }}
                         >
                           {item}
                         </Link>
@@ -344,51 +375,57 @@ function Header() {
                 <Link
                   href="/contact"
                   className="block py-2"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={(e) => {
+                    const allowed = handleNavigation(e);
+                    if (allowed) setIsMobileMenuOpen(false);
+                  }}
                 >
                   Contact
                 </Link>
               </li>
               <li className="pt-4 space-y-2">
-              {!isAuthenticated ? (
-                    <>
-                      <Button
-                        onClick={() => {
-                          setIsMobileMenuOpen(false);
-                          setIsLoginModalOpen(true);
-                        }}
-                        className="w-full text-white hover:bg-white/20"
-                        variant="ghost"
-                      >
-                        Login
-                      </Button>
-                      <Button
-                        onClick={() => {
-                          setIsMobileMenuOpen(false);
-                          setIsRegisterModalOpen(true);
-                        }}
-                        className="w-full bg-white text-[#b062b0] rounded hover:bg-gray-100"
-                        variant="ghost"
-                      >
-                        Sign Up
-                      </Button>
-                    </>
-                  ) : (
+                {!isAuthenticated ? (
+                  <>
                     <Button
                       onClick={() => {
-                        handleLogout();
                         setIsMobileMenuOpen(false);
+                        setIsLoginModalOpen(true);
                       }}
                       className="w-full text-white hover:bg-white/20"
                       variant="ghost"
                     >
-                      Logout
+                      Login
                     </Button>
-                  )}
+                    <Button
+                      onClick={() => {
+                        setIsMobileMenuOpen(false);
+                        setIsRegisterModalOpen(true);
+                      }}
+                      className="w-full bg-white text-[#b062b0] rounded hover:bg-gray-100"
+                      variant="ghost"
+                    >
+                      Sign Up
+                    </Button>
+                  </>
+                ) : (
+                  <Button
+                    onClick={() => {
+                      handleLogout();
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className="w-full text-white hover:bg-white/20"
+                    variant="ghost"
+                  >
+                    Logout
+                  </Button>
+                )}
                 <Link
                   href="/subscription"
                   className="block text-center py-3 bg-purple-700 rounded hover:bg-purple-800"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={(e) => {
+                    const allowed = handleNavigation(e);
+                    if (allowed) setIsMobileMenuOpen(false);
+                  }}
                 >
                   Subscribe
                 </Link>
@@ -401,4 +438,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default Navigation;
