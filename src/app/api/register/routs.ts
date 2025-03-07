@@ -14,7 +14,7 @@ export async function POST(req: Request) {
     }
 
     console.log("Name:", name);
-    console.log("Email:", name);
+    console.log("Email:", email); // Corrected from 'name' to 'email'
     console.log("Password:", password);
 
     // Add your logic to handle the data, like saving to the database or further validation

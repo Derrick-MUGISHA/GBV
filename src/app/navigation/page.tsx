@@ -16,7 +16,8 @@ import { SignUpForm } from "@/components/ui/SignIn-form";
 import { signOut } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@/app/firebase/config"; 
-import router from "next/dist/client/router";
+import { useRouter } from "next/navigation";
+
 
 
 // Define types for dropdown props
@@ -90,11 +91,12 @@ function Header() {
 
 
   // Handle navigation
+  const router = useRouter();
 
   const handleLogout = () => {
     signOut(auth);
     sessionStorage.removeItem('user');
-    router.push('/');
+    router.push('Wc');
   };
 
   //  navigation
@@ -121,7 +123,7 @@ function Header() {
           <ul className="flex items-center gap-4">
             <li>
               <Link
-                href="/"
+                href="dashboard"
                 className="px-4 py-2 hover:text-gray-300 transition-colors"
               >
                 Home

@@ -45,6 +45,7 @@ export function LoginForm({
       
       if (result?.user) {
         setSuccess("Login successful! Redirecting...");
+        sessionStorage.setItem("user", "true")
         setEmail("");
         setPassword("");
         // Redirect after 2 seconds
