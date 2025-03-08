@@ -1,8 +1,20 @@
-import React from 'react';
+"use client"
+import React, { useEffect, useState } from 'react';
 import { FiHeart, FiShield, FiBook, FiPhoneForwarded, FiGlobe } from 'react-icons/fi';
 import { Button } from '@/components/ui/button';
 
 const Resources = () => {
+  const [backgroundPosition, setBackgroundPosition] = useState(0);
+  
+  // Animation for the background
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setBackgroundPosition(prev => (prev + 1) % 100);
+    }, 50);
+    
+    return () => clearInterval(interval);
+  }, []);
+
   const resourceCategories = [
     {
       title: "Emergency Contacts",
@@ -54,23 +66,118 @@ const Resources = () => {
     }
   ];
 
+  // SVG animation for the changing world
+  const WorldAnimation = () => (
+    <svg 
+      className="absolute inset-0 w-full h-full opacity-20" 
+      viewBox="0 0 1000 300" 
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      {/* Animated Globe */}
+      <circle 
+        cx="500" 
+        cy="150" 
+        r="100" 
+        fill="none" 
+        stroke="white" 
+        strokeWidth="2" 
+        strokeDasharray="5,5" 
+        style={{ 
+          transformOrigin: "center",
+          animation: "spin 20s linear infinite"
+        }}
+      />
+      
+      {/* Latitude lines */}
+      {[30, 60, 90, 120, 150].map((pos, i) => (
+        <ellipse 
+          key={i} 
+          cx="500" 
+          cy="150" 
+          rx="100" 
+          ry={pos / 3} 
+          fill="none" 
+          stroke="white" 
+          strokeWidth="1" 
+          strokeOpacity="0.5"
+        />
+      ))}
+      
+      {/* Random dots representing locations */}
+      {Array.from({ length: 20 }).map((_, i) => (
+        <circle 
+          key={i}
+          cx={400 + Math.sin(i * 0.5 + backgroundPosition / 10) * 100}
+          cy={150 + Math.cos(i * 0.5 + backgroundPosition / 10) * 50}
+          r="3"
+          fill="white"
+        />
+      ))}
+      
+      {/* Animated connections */}
+      {Array.from({ length: 10 }).map((_, i) => (
+        <path 
+          key={i}
+          d={`M${500 + Math.sin(i * 0.7) * 80},${150 + Math.cos(i * 0.7) * 40} 
+              Q${500 + Math.sin(i * 0.7 + backgroundPosition / 20) * 40},
+              ${150 - 20 + Math.sin(backgroundPosition / 15) * 20} 
+              ${500 + Math.cos(i * 0.7) * 80},${150 + Math.sin(i * 0.7) * 40}`}
+          fill="none"
+          stroke="white"
+          strokeWidth="1"
+          strokeOpacity="0.6"
+          strokeDasharray="3,3"
+        />
+      ))}
+    </svg>
+  );
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-purple-50 to-pink-50">
-      {/* Hero Section */}
-      <div
-        className="relative h-64 bg-purple-900 flex items-center justify-center"
-      >
-        <div className="absolute inset-0 bg-opacity-50 bg-gradient-to-r from-purple-900 to-pink-700" />
-        <h1 className="text-4xl font-bold text-white z-10 text-center px-4">
-          Resources & Support Services
-        </h1>
+      {/* Hero Section with Animation */}
+      <div className="relative h-96 bg-purple-900 overflow-hidden">
+        <div 
+          className="absolute inset-0 bg-gradient-to-r from-purple-900 to-pink-700"
+          style={{ 
+            backgroundSize: "200% 200%",
+            backgroundPosition: `${backgroundPosition}% 50%`,
+            transition: "background-position 0.5s ease"
+          }}
+        />
+        
+        {/* World Animation */}
+        <WorldAnimation />
+        
+        {/* Content */}
+        <div className="relative z-10 h-full flex items-center justify-center">
+          <h1 className="text-4xl font-bold text-white text-center px-4">
+            Resources & Support Services
+          </h1>
+        </div>
+        
+        {/* Animated particles */}
+        <div className="absolute inset-0 overflow-hidden">
+          {Array.from({ length: 15 }).map((_, i) => (
+            <div 
+              key={i}
+              className="absolute rounded-full bg-white opacity-70"
+              style={{
+                width: Math.random() * 6 + 2 + "px",
+                height: Math.random() * 6 + 2 + "px",
+                top: Math.random() * 100 + "%",
+                left: Math.random() * 100 + "%",
+                animation: `float ${Math.random() * 10 + 10}s linear infinite`,
+                animationDelay: `${Math.random() * 5}s`,
+                transform: `translateY(${(backgroundPosition / 2) % 100}px)`
+              }}
+            />
+          ))}
+        </div>
       </div>
 
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 py-16">
-        <div
-          className="mb-16 text-center"
-        >
+        <div className="mb-16 text-center">
           <h2 className="text-3xl font-bold text-purple-900 mb-4">
             Immediate Help Resources
           </h2>
@@ -117,9 +224,7 @@ const Resources = () => {
         </div>
 
         {/* Additional Resources */}
-        <div
-          className="mt-16 bg-white rounded-xl shadow-lg p-8"
-        >
+        <div className="mt-16 bg-white rounded-xl shadow-lg p-8">
           <div className="text-center mb-8">
             <h2 className="text-2xl font-bold text-purple-900 mb-4">
               Additional Support Channels
@@ -178,6 +283,20 @@ const Resources = () => {
           </Button>
         </div>
       </div>
+      
+      {/* CSS for animations */}
+      <style jsx>{`
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+        
+        @keyframes float {
+          0% { transform: translateY(0) translateX(0); }
+          50% { transform: translateY(-100px) translateX(20px); }
+          100% { transform: translateY(-200px) translateX(0); opacity: 0; }
+        }
+      `}</style>
     </div>
   );
 };
