@@ -30,7 +30,7 @@ function Home() {
   // Once authenticated, render the home page content
   return (
     <div>
-      <h1>Welcome to the Home Page</h1>
+      <Home />
       {/* Your protected home page content */}
     </div>
   );

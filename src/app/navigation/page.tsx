@@ -207,9 +207,10 @@ function Navigation() {
               Logout
             </Button>
           )}
-          <Link href="/subscription" onClick={handleNavigation}>
+          <Link 
+          href="/community/web-dev" onClick={handleNavigation}>
             <Button className="bg-purple-700 hover:bg-purple-800 text-white">
-              Subscribe
+            Community
             </Button>
           </Link>
         </div>
