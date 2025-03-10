@@ -8,6 +8,8 @@ import {
   Lightbulb, 
   HandHelping 
 } from 'lucide-react';
+import Footer from '../Footer/page';
+import Navigation from '../navigation/page';
 
 const About = () => {
   const [activeValue, setActiveValue] = useState<number | null>(null);
@@ -41,6 +43,8 @@ const About = () => {
   ];
 
   return (
+    <>
+    <Navigation />
     <div className="min-h-screen bg-gradient-to-br from-purple-50 to-indigo-50">
       {/* Hero Section */}
       <motion.div 
@@ -148,6 +152,8 @@ const About = () => {
         </div>
       </div>
     </div>
+    <Footer />
+    </>
   );
 }
 

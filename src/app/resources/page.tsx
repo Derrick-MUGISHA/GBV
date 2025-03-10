@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import { FiHeart, FiShield, FiBook, FiPhoneForwarded, FiGlobe } from 'react-icons/fi';
 import { Button } from '@/components/ui/button';
+import Footer from '../Footer/page';
+import Navigation from '../navigation/page';
 
 const Resources = () => {
   const [backgroundPosition, setBackgroundPosition] = useState(0);
@@ -133,6 +135,8 @@ const Resources = () => {
   );
 
   return (
+    <>
+    <Navigation />
     <div className="min-h-screen bg-gradient-to-b from-purple-50 to-pink-50">
       {/* Hero Section with Animation */}
       <div className="relative h-96 bg-purple-900 overflow-hidden">
@@ -298,6 +302,8 @@ const Resources = () => {
         }
       `}</style>
     </div>
+    <Footer />
+    </>
   );
 };
 

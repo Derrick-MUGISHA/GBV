@@ -5,6 +5,8 @@ import { ArrowDown, Shield, Heart, HelpCircle } from "lucide-react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@/app/firebase/config";
 import { useRouter } from "next/navigation";
+import Footer from "../Footer/page";
+import Navigation from "../navigation/page";
 // import { Button } from "@/components/ui/button";
 // import { signOut } from "firebase/auth";
 
@@ -91,6 +93,8 @@ function Home() {
   };
 
   return (
+    <>
+    <Navigation />
     <div className="w-full min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       {/* Hero Section */}
       <div className="relative w-full min-h-screen flex items-center justify-center overflow-hidden">
@@ -322,6 +326,8 @@ function Home() {
         </section>
       </div>
     </div>
+    <Footer />
+    </>
   );
 }
 

@@ -1,6 +1,8 @@
 "use client"
 import React, { useState, useEffect } from 'react';
 import { HiOutlineMail, HiOutlinePhone, HiOutlineLocationMarker } from "react-icons/hi";
+import Footer from '../Footer/page';
+import Navigation from '../navigation/page';
 
 const Contact = () => {
   // State for the changing header text
@@ -24,7 +26,7 @@ const Contact = () => {
     }, 5000); // Change every 5 seconds
 
     return () => clearInterval(interval);
-  }, []);
+  },);
 
   // Animation for contact items and form fields
   useEffect(() => {
@@ -56,6 +58,8 @@ const Contact = () => {
   }, []);
 
   return (
+    <>
+    <Navigation />
     <div className="min-h-screen bg-gradient-to-b from-purple-50 to-pink-50 overflow-hidden">
       {/* Hero Section with Court Theme */}
       <div 
@@ -335,6 +339,8 @@ const Contact = () => {
         }
       `}</style>
     </div>
+    <Footer />
+    </>
   );
 };
 
