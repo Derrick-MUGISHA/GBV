@@ -18,6 +18,8 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@/app/firebase/config";
 import { useRouter } from "next/navigation";
 
+// import { useRouter } from "next/navigation";
+
 interface DesktopDropdownProps {
   title: string;
   items: string[];
@@ -93,7 +95,7 @@ function Navigation() {
   const handleLogout = () => {
     signOut(auth);
     sessionStorage.removeItem("user");
-    router.push("Wc");
+    router.push("/Wc");
   };
 
   const toggleDropdown = (dropdownName: string) => {
@@ -303,13 +305,13 @@ function Navigation() {
                 </Link>
               </li>
               <li>
-                <Button
+                <button
                   className="w-full text-left py-2"
                   onClick={() => toggleDropdown("solutions")}
                   aria-expanded={openDropdown === "solutions"}
                 >
                   Our Solution ▾
-                </Button>
+                </button>
                 {openDropdown === "solutions" && (
                   <div className="ml-4 bg-white/10 rounded-lg p-2">
                     {subpage2.map((item) => {
@@ -344,13 +346,13 @@ function Navigation() {
                 </Link>
               </li>
               <li>
-                <Button
+                <button
                   className="w-full text-left py-2"
                   onClick={() => toggleDropdown("involved")}
                   aria-expanded={openDropdown === "involved"}
                 >
                   Get Involved ▾
-                </Button>
+                </button>
                 {openDropdown === "involved" && (
                   <div className="ml-4 bg-white/10 rounded-lg p-2">
                     {subpage1.map((item) => {

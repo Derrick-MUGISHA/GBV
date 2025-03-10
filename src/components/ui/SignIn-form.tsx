@@ -51,7 +51,7 @@ export function SignUpForm({ className, ...props }: React.ComponentPropsWithoutR
         await signInWithEmailAndPassword(auth, data.email, data.password);
         sessionStorage.setItem("user", "true");
         reset();
-        router.push("/Wc");
+        router.push("/dashboard");
       }
     } catch (err) {
       console.error("Registration error:", err);
