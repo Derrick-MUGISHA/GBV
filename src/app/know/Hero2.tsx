@@ -19,7 +19,7 @@ const HeroSection = () => {
   };
 
   const navigateToChat = () => {
-    router.push('/ai-guide');
+    router.push('ai');
   };
 
   return (
@@ -116,7 +116,7 @@ const HeroSection = () => {
               </button>
             </Link>
             
-            <Link href="/ai-guide" className="w-full sm:w-auto">
+            <Link href="ai" className="w-full sm:w-auto">
               <button 
                 onClick={navigateToChat}
                 className="w-full bg-white text-purple-900 px-6 py-3 rounded-full text-lg font-medium hover:bg-purple-100 transition-all flex items-center justify-center gap-2 shadow-lg"

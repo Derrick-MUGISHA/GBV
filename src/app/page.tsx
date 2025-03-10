@@ -13,16 +13,23 @@ function Home() {
   useEffect(() => {
     // Ensure this only runs in the client-side environment (browser)
     if (typeof window !== "undefined") {
-      // If no user is authenticated or sessionStorage has no user data, redirect to '/Wc'
-      if (!user && !sessionStorage.getItem("user")) {
-        router.push("/Wc"); // Redirect to the desired page if not authenticated
+      const sessionUser = sessionStorage.getItem("user");
+      
+      // Check if user is authenticated or if there's data in sessionStorage
+      if (!user && !sessionUser) {
+        router.push("/Wc"); // Redirect to the login page if not authenticated
       } else {
+        // If user is authenticated or session exists, set loading to false
         setLoading(false);
+        // Optionally, store user data in sessionStorage if not already present
+        if (user && !sessionUser) {
+          sessionStorage.setItem("user", JSON.stringify(user));
+        }
       }
     }
   }, [user, router]); // Runs whenever user or router changes
 
-  // Show loading while checking authentication
+  // While loading, show a loading indicator or placeholder
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -30,8 +37,8 @@ function Home() {
   // Once authenticated, render the home page content
   return (
     <div>
-      <Home />
       {/* Your protected home page content */}
+      <h1>Welcome, {user?.displayName || "User"}</h1>
     </div>
   );
 }

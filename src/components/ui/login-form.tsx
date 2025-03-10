@@ -49,7 +49,7 @@ export function LoginForm({
         setEmail("");
         setPassword("");
         // Redirect after 2 seconds
-        setTimeout(() => router.push('/dashboard'), 1000);
+        setTimeout(() => router.push('/dashboard'));
       } else {
         setError("Invalid email or password"); 
       }
