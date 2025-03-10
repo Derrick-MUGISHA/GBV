@@ -7,19 +7,21 @@ import {
   FiMessageCircle,
   FiActivity
 } from 'react-icons/fi';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '@/app/firebase/config';
 
 const HeroSection = () => {
   const router = useRouter();
+  const [user] = useAuthState(auth)
 
   // Navigation handler functions
-  const navigateToCommunity = () => {
-    router.push('/community');
-  };
-
-  const navigateToChat = () => {
-    router.push('ai');
+  const handleNavigation = (path: string) => {
+    if (!user) {
+      router.push('/Wc');
+    } else {
+      router.push(path);
+    }
   };
 
   return (
@@ -106,25 +108,21 @@ const HeroSection = () => {
             transition={{ delay: 0.5 }}
           >
             {/* Link version for better SEO */}
-            <Link href="/community" className="w-full sm:w-auto">
-              <button 
-                onClick={navigateToCommunity}
-                className="w-full bg-pink-600 text-white px-6 py-3 rounded-full text-lg font-medium hover:bg-pink-700 transition-all flex items-center justify-center gap-2 shadow-lg"
-              >
-                <span>Join Our Community</span>
-                <FiUsers className="w-5 h-5" />
-              </button>
-            </Link>
+            <button 
+              onClick={() => handleNavigation('/community')}
+              className="w-full bg-pink-600 text-white px-6 py-3 rounded-full text-lg font-medium hover:bg-pink-700 transition-all flex items-center justify-center gap-2 shadow-lg"
+            >
+              <span>Join Our Community</span>
+              <FiUsers className="w-5 h-5" />
+            </button>
             
-            <Link href="ai" className="w-full sm:w-auto">
-              <button 
-                onClick={navigateToChat}
-                className="w-full bg-white text-purple-900 px-6 py-3 rounded-full text-lg font-medium hover:bg-purple-100 transition-all flex items-center justify-center gap-2 shadow-lg"
-              >
-                <span>Chat with AI Guide</span>
-                <FiMessageCircle className="w-5 h-5" />
-              </button>
-            </Link>
+            <button 
+              onClick={() => handleNavigation('/ai')}
+              className="w-full bg-white text-purple-900 px-6 py-3 rounded-full text-lg font-medium hover:bg-purple-100 transition-all flex items-center justify-center gap-2 shadow-lg"
+            >
+              <span>Chat with AI Guide</span>
+              <FiMessageCircle className="w-5 h-5" />
+            </button>
           </motion.div>
         </div>
       </div>

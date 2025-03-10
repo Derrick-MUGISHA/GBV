@@ -128,3 +128,51 @@ body {
     @apply bg-background text-foreground;
   }
 }
+/* app/globals.css */
+@keyframes spin-fast {
+  from {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(180deg) scale(1.5);
+  }
+  to {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg) scale(1.2);
+  }
+  50% {
+    transform: rotate(-180deg) scale(0.8);
+  }
+  to {
+    transform: rotate(-360deg) scale(1.2);
+  }
+}
+
+@keyframes spin-medium {
+  from {
+    transform: rotate(0deg) skew(0deg);
+  }
+  50% {
+    transform: rotate(90deg) skew(20deg);
+  }
+  to {
+    transform: rotate(180deg) skew(0deg);
+  }
+}
+
+.animate-spin-fast {
+  animation: spin-fast 0.8s linear infinite;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 1.2s ease-in-out infinite;
+}
+
+.animate-spin-medium {
+  animation: spin-medium 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}

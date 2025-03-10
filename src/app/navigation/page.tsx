@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState, useEffect } from "react";
 import gray from "@/app/assets/GRAY.png";
 import Link from "next/link";
@@ -17,8 +18,7 @@ import { signOut } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@/app/firebase/config";
 import { useRouter } from "next/navigation";
-
-// import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
 
 interface DesktopDropdownProps {
   title: string;
@@ -178,6 +178,29 @@ function Navigation() {
                 Contact
               </Link>
             </li>
+            {isAuthenticated && (
+              <motion.li
+                whileHover={{ scale: 1.05 }}
+                className="ml-4"
+              >
+                <Link
+                  href="/ai"
+                  className="px-6 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-500 
+                           text-white font-bold flex items-center gap-2 relative
+                           border-2 border-white/50 shadow-lg"
+                  onClick={handleNavigation}
+                >
+                  <motion.span
+                    animate={{ rotate: [0, 360] }}
+                    transition={{ repeat: Infinity, duration: 3 }}
+                    className="text-xl"
+                  >
+                    🤖
+                  </motion.span>
+                  AI Companion
+                </Link>
+              </motion.li>
+            )}
           </ul>
         </nav>
 
@@ -210,9 +233,11 @@ function Navigation() {
             </Button>
           )}
           <Link 
-          href="/community/web-dev" onClick={handleNavigation}>
+            href="/community/web-dev" 
+            onClick={handleNavigation}
+          >
             <Button className="bg-purple-700 hover:bg-purple-800 text-white">
-            Community
+              Community
             </Button>
           </Link>
         </div>
@@ -230,7 +255,7 @@ function Navigation() {
       {/* Login Modal */}
       {isLoginModalOpen && (
         <div
-          className="fixed inset-0  bg-opacity-50 z-[100] flex items-center justify-center"
+          className="fixed inset-0 bg-black bg-opacity-50 z-[100] flex items-center justify-center"
           onClick={() => setIsLoginModalOpen(false)}
           role="dialog"
           aria-modal="true"
@@ -254,7 +279,7 @@ function Navigation() {
       {/* Registration Modal */}
       {isRegisterModalOpen && (
         <div
-          className="fixed inset-0  bg-opacity-50 z-[100] flex items-center justify-center"
+          className="fixed inset-0 bg-black bg-opacity-50 z-[100] flex items-center justify-center"
           onClick={() => setIsRegisterModalOpen(false)}
           role="dialog"
           aria-modal="true"
@@ -314,22 +339,19 @@ function Navigation() {
                 </button>
                 {openDropdown === "solutions" && (
                   <div className="ml-4 bg-white/10 rounded-lg p-2">
-                    {subpage2.map((item) => {
-                      const itemPath = item.toLowerCase().replace(/\s+/g, "-");
-                      return (
-                        <Link
-                          key={item}
-                          href={`/our-solution/${itemPath}`}
-                          className="block py-2 hover:bg-white/20 rounded px-2"
-                          onClick={(e) => {
-                            const allowed = handleNavigation(e);
-                            if (allowed) setIsMobileMenuOpen(false);
-                          }}
-                        >
-                          {item}
-                        </Link>
-                      );
-                    })}
+                    {subpage2.map((item) => (
+                      <Link
+                        key={item}
+                        href={`/our-solution/${item.toLowerCase().replace(/\s+/g, "-")}`}
+                        className="block py-2 hover:bg-white/20 rounded px-2"
+                        onClick={(e) => {
+                          const allowed = handleNavigation(e);
+                          if (allowed) setIsMobileMenuOpen(false);
+                        }}
+                      >
+                        {item}
+                      </Link>
+                    ))}
                   </div>
                 )}
               </li>
@@ -355,22 +377,19 @@ function Navigation() {
                 </button>
                 {openDropdown === "involved" && (
                   <div className="ml-4 bg-white/10 rounded-lg p-2">
-                    {subpage1.map((item) => {
-                      const itemPath = item.toLowerCase().replace(/\s+/g, "-");
-                      return (
-                        <Link
-                          key={item}
-                          href={`/get-involved/${itemPath}`}
-                          className="block py-2 hover:bg-white/20 rounded px-2"
-                          onClick={(e) => {
-                            const allowed = handleNavigation(e);
-                            if (allowed) setIsMobileMenuOpen(false);
-                          }}
-                        >
-                          {item}
-                        </Link>
-                      );
-                    })}
+                    {subpage1.map((item) => (
+                      <Link
+                        key={item}
+                        href={`/get-involved/${item.toLowerCase().replace(/\s+/g, "-")}`}
+                        className="block py-2 hover:bg-white/20 rounded px-2"
+                        onClick={(e) => {
+                          const allowed = handleNavigation(e);
+                          if (allowed) setIsMobileMenuOpen(false);
+                        }}
+                      >
+                        {item}
+                      </Link>
+                    ))}
                   </div>
                 )}
               </li>
@@ -386,6 +405,33 @@ function Navigation() {
                   Contact
                 </Link>
               </li>
+              {isAuthenticated && (
+                <li>
+                  <motion.div
+                    className="mx-2 my-3"
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <Link
+                      href="/ai"
+                      className="block py-3 px-6 bg-gradient-to-r from-purple-600 to-pink-500 
+                               text-white font-bold rounded-full shadow-lg items-center justify-center gap-2"
+                      onClick={(e) => {
+                        const allowed = handleNavigation(e);
+                        if (allowed) setIsMobileMenuOpen(false);
+                      }}
+                    >
+                      <motion.span
+                        animate={{ rotate: [0, 360] }}
+                        transition={{ repeat: Infinity, duration: 3 }}
+                        className="text-xl"
+                      >
+                        🤖
+                      </motion.span>
+                      AI Companion
+                    </Link>
+                  </motion.div>
+                </li>
+              )}
               <li className="pt-4 space-y-2">
                 {!isAuthenticated ? (
                   <>
@@ -418,7 +464,7 @@ function Navigation() {
                     }}
                     className="w-full text-white hover:bg-white/20"
                     variant="ghost"
-                  >
+                    >
                     Logout
                   </Button>
                 )}

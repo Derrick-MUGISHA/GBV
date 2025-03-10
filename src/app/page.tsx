@@ -1,46 +1,37 @@
+// components/ProtectedRoute.tsx
 "use client";
 
-import { useState, useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@/app/firebase/config";
 import { useRouter } from "next/navigation";
+import { useEffect, ReactNode } from "react";
 
-function Home() {
-  const [user] = useAuthState(auth); // Firebase auth state
+export default function ProtectedRoute({ children }: { children: ReactNode }) {
+  const [user, loading] = useAuthState(auth);
   const router = useRouter();
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Ensure this only runs in the client-side environment (browser)
-    if (typeof window !== "undefined") {
-      const sessionUser = sessionStorage.getItem("user");
-      
-      // Check if user is authenticated or if there's data in sessionStorage
-      if (!user && !sessionUser) {
-        router.push("/Wc"); // Redirect to the login page if not authenticated
-      } else {
-        // If user is authenticated or session exists, set loading to false
-        setLoading(false);
-        // Optionally, store user data in sessionStorage if not already present
-        if (user && !sessionUser) {
-          sessionStorage.setItem("user", JSON.stringify(user));
-        }
-      }
+    if (!loading && !user) {
+      router.push("/Wc");
     }
-  }, [user, router]); // Runs whenever user or router changes
+  }, [user, loading, router]);
 
-  // While loading, show a loading indicator or placeholder
-  if (loading) {
-    return <div>Loading...</div>;
+  if (loading || !user) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <div className="relative w-24 h-24">
+          <div className="absolute w-full h-full border-4 border-purple-500 rounded-full animate-spin-fast" />
+          <div className="absolute w-full h-full border-4 border-pink-500 rounded-full animate-spin-slow left-2 top-2" />
+          <div className="absolute w-full h-full border-4 border-yellow-400 rounded-full animate-spin-medium right-2 bottom-2" />
+          <div className="absolute inset-0 flex items-center justify-center">
+            <span className="text-lg font-bold text-pink-600 animate-pulse">
+              LOADING
+            </span>
+          </div>
+        </div>
+      </div>
+    );
   }
 
-  // Once authenticated, render the home page content
-  return (
-    <div>
-      {/* Your protected home page content */}
-      <h1>Welcome, {user?.displayName || "User"}</h1>
-    </div>
-  );
+  return <>{children}</>;
 }
-
-export default Home;
