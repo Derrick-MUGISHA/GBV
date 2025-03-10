@@ -1,5 +1,5 @@
 "use client";
-// import React, { useState } from 'react';
+
 import { motion } from 'framer-motion';
 import { 
   FiShield, 
@@ -7,9 +7,21 @@ import {
   FiMessageCircle,
   FiActivity
 } from 'react-icons/fi';
-// import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 const HeroSection = () => {
+  const router = useRouter();
+
+  // Navigation handler functions
+  const navigateToCommunity = () => {
+    router.push('/community');
+  };
+
+  const navigateToChat = () => {
+    router.push('/ai-guide');
+  };
+
   return (
     <div className="relative h-screen overflow-hidden">
       {/* Animated Gradient Background */}
@@ -57,7 +69,7 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-5xl md:text-7xl font-bold mb-6 leading-tight"
+            className="text-4xl sm:text-5xl md:text-7xl font-bold mb-6 leading-tight pt-16 sm:pt-0"
           >
             Break the Silence,<br />End the Violence
           </motion.h1>
@@ -75,9 +87,10 @@ const HeroSection = () => {
 
           {/* Stats Counter */}
           <motion.div
-            className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12"
+            className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 sm:mb-12"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
+            transition={{ delay: 0.4 }}
           >
             <StatCard icon={<FiUsers />} number="50K+" label="Community Members" />
             <StatCard icon={<FiShield />} number="24/7" label="AI Protection Monitoring" />
@@ -85,57 +98,43 @@ const HeroSection = () => {
             <StatCard icon={<FiActivity />} number="85%" label="Successful Interventions" />
           </motion.div>
 
+          {/* Navigation Buttons - Responsive and Functional */}
           <motion.div
-            className="flex flex-wrap justify-center gap-4"
+            className="flex flex-col sm:flex-row justify-center gap-4 w-full max-w-md mx-auto"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
           >
-            <button className="bg-pink-600 text-white px-8 py-3 rounded-full text-lg hover:bg-pink-700 transition-all flex items-center gap-2">
-              Join Our Community
-              <FiUsers className="w-5 h-5" />
-            </button>
+            {/* Link version for better SEO */}
+            <Link href="/community" className="w-full sm:w-auto">
+              <button 
+                onClick={navigateToCommunity}
+                className="w-full bg-pink-600 text-white px-6 py-3 rounded-full text-lg font-medium hover:bg-pink-700 transition-all flex items-center justify-center gap-2 shadow-lg"
+              >
+                <span>Join Our Community</span>
+                <FiUsers className="w-5 h-5" />
+              </button>
+            </Link>
             
-            <button className="bg-white text-purple-900 px-8 py-3 rounded-full text-lg hover:bg-purple-100 transition-all flex items-center gap-2">
-              Chat with AI Guide
-              <FiMessageCircle className="w-5 h-5" />
-            </button>
+            <Link href="/ai-guide" className="w-full sm:w-auto">
+              <button 
+                onClick={navigateToChat}
+                className="w-full bg-white text-purple-900 px-6 py-3 rounded-full text-lg font-medium hover:bg-purple-100 transition-all flex items-center justify-center gap-2 shadow-lg"
+              >
+                <span>Chat with AI Guide</span>
+                <FiMessageCircle className="w-5 h-5" />
+              </button>
+            </Link>
           </motion.div>
         </div>
       </div>
     </div>
   );
 };
-
 const HowItWorks = () => {
-//   const router = useRouter();
-//   const [openSection, setOpenSection] = useState<number | null>(0);
-//   const [quizState, setQuizState] = useState({
-//     currentQuestion: 0,
-//     score: 0,
-//     showFeedback: false,
-//     selectedAnswer: null as number | null,
-//   });
-
-  // ... (keep the existing sections and quizQuestions arrays)
-
   return (
     <div className="min-h-screen">
       <HeroSection />
-
-      {/* Emergency Exit Button */}
-      {/* <motion.button
-        className="fixed top-4 right-4 bg-pink-600 text-white px-4 py-2 rounded-lg z-50 flex items-center gap-2 shadow-lg hover:bg-pink-700 transition-colors"
-        onClick={handleEmergencyExit}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-      >
-        <FiHome className="w-4 h-4" />
-        Emergency Exit
-      </motion.button> */}
-
-      {/* How It Works Content */}
       <div className="bg-gradient-to-b from-purple-50 to-pink-50">
         {/* ... (keep the existing HowItWorks content structure) */}
       </div>

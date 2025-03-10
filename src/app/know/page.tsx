@@ -176,28 +176,6 @@ const HowItWorks = () => {
     <>
     <Hero2 />
     <div className="min-h-screen bg-gradient-to-b from-purple-50 to-pink-50">
-      {/* Emergency exit button */}
-      {/* Hero section */}
-      {/* <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="bg-purple-900 text-white py-20 px-4"
-      >
-        <div className="max-w-6xl mx-auto text-center">
-        
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3 }}
-            className="text-xl md:text-2xl text-purple-100"
-          >
-            Understanding • Prevention • Action
-          </motion.p>
-        </div>
-      </motion.div> */}
-
-      {/* Interactive sections */}
       <motion.div
         initial="hidden"
         animate="visible"
