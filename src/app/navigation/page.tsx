@@ -87,15 +87,15 @@ function Navigation() {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const userSession = sessionStorage.getItem("user");
+      const userSession = localStorage.getItem("user");
       setIsAuthenticated(user || userSession);
     }
   }, [user]);
 
   const handleLogout = () => {
-    signOut(auth);
-    sessionStorage.removeItem("user");
-    router.push("/Wc");
+    signOut(auth); // Sign out the user
+    sessionStorage.removeItem("user"); // Remove the user session data
+    router.push("/"); // Redirect to the home page
   };
 
   const toggleDropdown = (dropdownName: string) => {
@@ -233,7 +233,7 @@ function Navigation() {
             </Button>
           )}
           <Link 
-            href="/community/web-dev" 
+            href="community" 
             onClick={handleNavigation}
           >
             <Button className="bg-purple-700 hover:bg-purple-800 text-white">

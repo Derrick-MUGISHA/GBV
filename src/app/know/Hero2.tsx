@@ -18,7 +18,7 @@ const HeroSection = () => {
   // Navigation handler functions
   const handleNavigation = (path: string) => {
     if (!user) {
-      router.push('/Wc');
+      router.push('/');
     } else {
       router.push(path);
     }

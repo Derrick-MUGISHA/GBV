@@ -64,7 +64,7 @@ function Home() {
   // Redirect if the user is not logged in
   useEffect(() => {
     if (!user) {
-      router.push('/Wc'); // Redirect to Wc page if not logged in
+      router.push('/'); // Redirect to Wc page if not logged in
     }
   }, [user, router]);
 

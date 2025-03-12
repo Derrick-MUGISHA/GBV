@@ -162,6 +162,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Send, Brain } from 'lucide-react';
 import type { Message } from '@/app/ai/type';
+import { Button } from '@/components/ui/button';
 
 // Helper function to generate responses based on keywords
 const generateResponse = (input: string): string => {
@@ -283,13 +284,13 @@ function App() {
             className="flex-1 px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
             disabled={isLoading}
           />
-          <button
+          <Button
             type="submit"
             disabled={isLoading}
             className="px-4 py-2 bg-purple-600 text-white rounded flex items-center gap-2 disabled:bg-purple-300 hover:bg-purple-700 transition-colors"
           >
             <Send className="w-4 h-4" />
-          </button>
+          </Button>
         </form>
       </footer>
     </div>
