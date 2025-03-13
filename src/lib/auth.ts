@@ -1,13 +1,13 @@
-import { doc, setDoc } from "firebase/firestore";
-import { db } from "@/app/firebase/config";
+import { ref, set } from "firebase/database";
+import { database } from "@/app/firebase/config";
 import { User } from "firebase/auth";
 
 export async function createUserProfile(user: User) {
-  const userRef = doc(db, "users", user.uid);
-  await setDoc(userRef, {
+  const userRef = ref(database, "users/" + user.uid);
+  await set(userRef, {
     email: user.email,
     communities: [],
-    createdAt: new Date()
+    createdAt: new Date().toISOString()
   });
 }
 

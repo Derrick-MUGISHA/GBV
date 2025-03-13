@@ -81,21 +81,28 @@ function Navigation() {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [user] = useAuthState(auth);
-  const userSession = sessionStorage.getItem("user");
-  const [isAuthenticated, setIsAuthenticated] = useState(user || userSession);
+  // const userSession = sessionStorage.getItem("user");
+  // const [isAuthenticated, setIsAuthenticated] = useState(user || userSession);
   const router = useRouter();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const userSession = localStorage.getItem("user");
-      setIsAuthenticated(user || userSession);
+      const storedUser = localStorage.getItem("user");
+      setIsAuthenticated(!!(user || storedUser)); // Convert to boolean
     }
   }, [user]);
 
   const handleLogout = () => {
-    signOut(auth); // Sign out the user
-    sessionStorage.removeItem("user"); // Remove the user session data
-    router.push("/"); // Redirect to the home page
+    signOut(auth)
+      .then(() => {
+        if (typeof window !== "undefined") {
+          localStorage.removeItem("user"); // Clear session
+        }
+        setIsAuthenticated(false);
+        router.push("/"); // Redirect to home
+      })
+      .catch((error) => console.error("Logout error:", error));
   };
 
   const toggleDropdown = (dropdownName: string) => {

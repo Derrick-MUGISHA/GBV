@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from 'react';
-import { db, ref, push, onValue, off, serverTimestamp, set, get } from '@/lib/firebase';
+import { database as db, ref, push, onValue, off, serverTimestamp, set, get } from '@/app/firebase/config';
 import { Message, ChatGroup, UserProfile } from '@/app/types/chat';
 import { v4 as uuidv4 } from 'uuid';
 
