@@ -19,6 +19,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@/app/firebase/config";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
+import ProfileDropdown from "@/components/ProfileDropdown";
 
 interface DesktopDropdownProps {
   title: string;
@@ -186,10 +187,7 @@ function Navigation() {
               </Link>
             </li>
             {isAuthenticated && (
-              <motion.li
-                whileHover={{ scale: 1.05 }}
-                className="ml-4"
-              >
+              <motion.li whileHover={{ scale: 1.05 }} className="ml-4">
                 <Link
                   href="/ai"
                   className="px-6 py-2 rounded-md bg-gradient-to-r from-purple-600 to-pink-500 
@@ -231,18 +229,9 @@ function Navigation() {
               </Button>
             </>
           ) : (
-            <Button
-              onClick={handleLogout}
-              variant="ghost"
-              className="text-white hover:bg-white/20"
-            >
-              Logout
-            </Button>
+            <ProfileDropdown user={user} />
           )}
-          <Link 
-            href="community" 
-            onClick={handleNavigation}
-          >
+          <Link href="community" onClick={handleNavigation}>
             <Button className="bg-purple-700 hover:bg-purple-800 text-white">
               Community
             </Button>
@@ -349,7 +338,9 @@ function Navigation() {
                     {subpage2.map((item) => (
                       <Link
                         key={item}
-                        href={`/our-solution/${item.toLowerCase().replace(/\s+/g, "-")}`}
+                        href={`/our-solution/${item
+                          .toLowerCase()
+                          .replace(/\s+/g, "-")}`}
                         className="block py-2 hover:bg-white/20 rounded px-2"
                         onClick={(e) => {
                           const allowed = handleNavigation(e);
@@ -387,7 +378,9 @@ function Navigation() {
                     {subpage1.map((item) => (
                       <Link
                         key={item}
-                        href={`/get-involved/${item.toLowerCase().replace(/\s+/g, "-")}`}
+                        href={`/get-involved/${item
+                          .toLowerCase()
+                          .replace(/\s+/g, "-")}`}
                         className="block py-2 hover:bg-white/20 rounded px-2"
                         onClick={(e) => {
                           const allowed = handleNavigation(e);
@@ -414,28 +407,8 @@ function Navigation() {
               </li>
               {isAuthenticated && (
                 <li>
-                  <motion.div
-                    className="mx-2 my-3"
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <Link
-                      href="/ai"
-                      className="block py-3 px-6 bg-gradient-to-r from-purple-600 to-pink-500 
-                               text-white font-bold rounded-full shadow-lg items-center justify-center gap-2"
-                      onClick={(e) => {
-                        const allowed = handleNavigation(e);
-                        if (allowed) setIsMobileMenuOpen(false);
-                      }}
-                    >
-                      <motion.span
-                        animate={{ rotate: [0, 360] }}
-                        transition={{ repeat: Infinity, duration: 3 }}
-                        className="text-xl"
-                      >
-                        🤖
-                      </motion.span>
-                      AI Companion
-                    </Link>
+                  <motion.div className="mx-2 my-3" whileTap={{ scale: 0.95 }}>
+                    <ProfileDropdown user={user} />
                   </motion.div>
                 </li>
               )}
@@ -471,7 +444,7 @@ function Navigation() {
                     }}
                     className="w-full text-white hover:bg-white/20"
                     variant="ghost"
-                    >
+                  >
                     Logout
                   </Button>
                 )}

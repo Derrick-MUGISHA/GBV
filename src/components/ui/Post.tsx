@@ -1,6 +1,6 @@
 "use client";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, db } from "@/app/firebase/config";
+import { auth, firestore } from "@/app/firebase/config";
 import { doc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
 import { CommunityPost } from "@/app/types/types";
 import CommentSection from "@/components/ui/CommentSection";
@@ -12,7 +12,7 @@ export default function Post({ post, communityId }: { post: CommunityPost; commu
   const handleLike = async () => {
     if (!user) return;
     
-    const postRef = doc(db, `communities/${communityId}/posts`, post.id);
+    const postRef = doc(firestore, `communities/${communityId}/posts`, post.id);
     await updateDoc(postRef, {
       likes: post.likes.includes(user.uid) 
         ? arrayRemove(user.uid) 

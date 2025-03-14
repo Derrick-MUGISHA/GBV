@@ -6,9 +6,13 @@ export interface Message {
   id: string;
   sender: string;
   text: string;
-  timestamp: string;
+  timestamp: string | number;
   userId: string;
+  isAuthenticated?: boolean;
+  persistent?: boolean;
+  
 }
+
 
 export type ChatGroupId = "Rwanda" | "General" | "Help" | "Announcements" | "Resources" | "Others";
 

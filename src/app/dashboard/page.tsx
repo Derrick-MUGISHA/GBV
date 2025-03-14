@@ -49,24 +49,46 @@ const featuredServices = [
 ];
 
 function Home() {
-  const [currentTextIndex, setCurrentTextIndex] = useState(0);
-  const [user] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
   const router = useRouter();
+  const [currentTextIndex, setCurrentTextIndex] = useState(0);
 
+  // Redirect only AFTER authentication state is determined
+  useEffect(() => {
+    if (!loading && !user) {
+      router.replace("/");
+    }
+  }, [user, loading, router]);
+
+  // Handle hero text animation loop
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTextIndex((prev) => (prev + 1) % heroTexts.length);
     }, 5000);
-
     return () => clearInterval(interval);
   }, []);
 
-  // Redirect if the user is not logged in
-  useEffect(() => {
-    if (!user) {
-      router.push('/'); // Redirect to Wc page if not logged in
-    }
-  }, [user, router]);
+  // ✅ Show loading animation instead of returning null
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen bg-black">
+        <div className="relative w-24 h-24">
+          <div className="absolute w-full h-full border-4 border-purple-500 rounded-full animate-spin-fast" />
+          <div className="absolute w-full h-full border-4 border-pink-500 rounded-full animate-spin-slow left-2 top-2" />
+          <div className="absolute w-full h-full border-4 border-yellow-400 rounded-full animate-spin-medium right-2 bottom-2" />
+          <div className="absolute inset-0 flex items-center justify-center">
+            <span className="text-lg font-bold text-white animate-pulse">
+              LOADING...
+            </span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Prevent flashing for unauthenticated users
+  if (!user) return null;
+
 
   const containerVariants = {
     hidden: { opacity: 0 },
