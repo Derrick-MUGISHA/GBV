@@ -228,7 +228,9 @@ function Navigation() {
                 Sign Up
               </Button>
             </>
+            
           ) : (
+            
             <ProfileDropdown user={user} />
           )}
           <Link href="community" onClick={handleNavigation}>
