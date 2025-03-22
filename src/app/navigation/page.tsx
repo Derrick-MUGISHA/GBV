@@ -152,7 +152,7 @@ function Navigation() {
       <header className="bg-[#b062b0d7] flex justify-between items-center px-4 h-28 w-full text-white">
         <div className="w-36 ml-4 md:ml-8 flex flex-col items-center justify-center">
           <p className="text-sm text-white font-semibold tracking-wide">
-            Echosafe
+            EchoSafe
           </p>
         </div>
 
