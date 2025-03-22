@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "deploy": "next build && firebase deploy"
   },
   "dependencies": {
     "@auth0/nextjs-auth0": "^4.0.2",
@@ -77,6 +78,7 @@
     "daisyui": "^5.0.2",
     "eslint": "^9",
     "eslint-config-next": "15.2.1",
+    "firebase-tools": "^13.35.1",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
