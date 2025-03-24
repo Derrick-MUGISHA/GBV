@@ -46,7 +46,7 @@ export default function Help() {
       <Navigation />
       <div className="min-h-screen bg-gradient-to-b from-pink-50 to-purple-50">
         {/* Emergency Banner */}
-        <motion.div 
+{/*         <motion.div 
           initial={{ y: -100 }}
           animate={{ y: 0 }}
           className="bg-red-600 text-white py-4 text-center"
@@ -57,7 +57,7 @@ export default function Help() {
               Click for Emergency Exit
             </button>
           </div>
-        </motion.div>
+        </motion.div> */}
 
         {/* Hero Section */}
         <section className="relative bg-purple-900 text-white py-20 px-4">
