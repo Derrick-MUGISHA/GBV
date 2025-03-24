@@ -251,12 +251,13 @@ export default function Donate() {
               Tax-Deductible Donations
             </h3>
             <p className="text-gray-600 mb-6">
-              We are a 501(c)(3) organization (EIN: 12-3456789). Your contribution is 
-              tax-deductible to the extent allowed by law.
-            </p>
-            <button className="text-pink-600 font-semibold hover:underline">
-              Download Receipt Template
-            </button>
+  We are a registered nonprofit organization in Rwanda. Your contribution helps support 
+  vital community initiatives and is eligible for tax deductions in accordance with Rwandan law.
+</p>
+<button className="text-pink-600 font-semibold hover:underline">
+  You will Receipt Template in the Notification
+</button>
+
           </div>
         </section>
       </div>
