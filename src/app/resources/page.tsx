@@ -260,7 +260,7 @@ const Resources = () => {
               <p className="text-gray-600 mb-4">
                 view our safety planning guides and legal rights handbooks
               </p>
-<span className="bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 cursor-pointer">View Resources</span>
+<span className="text-purple-600 py-2 px-4 rounded-lg cursor-pointer">View Resources</span>
             </div>
 
             <div className="text-center p-6 hover:bg-purple-50 rounded-xl">
@@ -269,7 +269,7 @@ const Resources = () => {
               <p className="text-gray-600 mb-4">
                 Connect with survivors in our moderated support community 
               </p>
-<span className="bg-pink-600 text-white py-2 px-4 rounded-lg hover:bg-pink-700 cursor-pointer">View our Community</span>
+<span className="text-pink-600 py-2 px-4 rounded-lg cursor-pointer">View our Community</span>
             </div>
 
             <div className="text-center p-6 hover:bg-purple-50 rounded-xl">
@@ -278,9 +278,7 @@ const Resources = () => {
               <p className="text-gray-600 mb-4">
                 Create a personalized safety plan with our expert guides
               </p>
-              <Button className="bg-purple-600 text-white hover:bg-purple-700">
-                Start Planning
-              </Button>
+               <span className="text-purple-600 py-2 px-4 rounded-lg cursor-pointer">Start Planning</span>
             </div>
           </div>
         </div>
