@@ -23,31 +23,40 @@ const Resources = () => {
       icon: <FiPhoneForwarded className="w-8 h-8 text-pink-600" />,
       items: [
         {
-          title: "24/7 National Hotline",
-          description: "Immediate crisis intervention and support",
-          contact: "0800 555 555"
-        },
+      title: "24/7 GBV & Child Protection Hotline",
+      description: "Immediate support for gender-based violence survivors",
+      contact: "3512"
+    },
         {
-          title: "SMS Help Line",
-          description: "Text support for discreet assistance",
-          contact: "SMS 'HELP' to 3434"
-        }
+      title: "Police Emergency",
+      description: "For immediate security and protection assistance",
+      contact: "112"
+    },
+     {
+      title: "Medical Emergency (SAMU)",
+      description: "Ambulance and urgent medical response",
+      contact: "912"
+    },
       ]
     },
     {
       title: "Legal Assistance",
       icon: <FiShield className="w-8 h-8 text-purple-600" />,
-      items: [
-        {
-          title: "Legal Aid Services",
-          description: "Free legal representation and advice",
-          contact: "0800 555 556"
-        },
-        {
-          title: "Protection Orders",
-          description: "Help obtaining court protection",
-          contact: "contact@legalprotect.org"
-        }
+      ite {
+      title: "Rwanda Legal Aid Forum",
+      description: "Free legal representation and advice",
+      contact: "+250 788 385 482"
+    },
+    {
+      title: "Isange One Stop Center",
+      description: "Comprehensive legal and medical support for GBV survivors",
+      contact: "3512"
+    },
+    {
+      title: "Rwanda Bar Association",
+      description: "Legal services and pro bono lawyers",
+      contact: "info@rwandabar.org.rw"
+    }
       ]
     },
     {
@@ -55,15 +64,20 @@ const Resources = () => {
       icon: <FiHeart className="w-8 h-8 text-pink-600" />,
       items: [
         {
-          title: "Counseling Centers",
-          description: "Trauma-informed therapy sessions",
-          contact: "Find nearby centers"
-        },
-        {
-          title: "Support Groups",
-          description: "Peer-led community meetings",
-          contact: "groups@safespace.org"
-        }
+      title: "Isange One Stop Centers",
+      description: "Free counseling, medical, and legal services",
+      contact: "Available at district hospitals"
+    },
+    {
+      title: "Rwanda Psychological Society",
+      description: "Certified trauma-informed therapy sessions",
+      contact: "+250 788 307 392"
+    },
+    {
+      title: "Women’s Support Groups",
+      description: "Peer-led community meetings for survivors",
+      contact: "info@womenforchange.rw"
+    }
       ]
     }
   ];
