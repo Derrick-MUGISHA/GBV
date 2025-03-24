@@ -183,8 +183,8 @@ const Contact = () => {
                   <h3 className="text-lg font-semibold text-gray-800">
                     Email Correspondence
                   </h3>
-                  <p className="text-gray-600">legal@justiceforall.org</p>
-                  <p className="text-gray-600">24/7 Emergency Assistance</p>
+                  <p className="text-gray-600">info@rwandabar.org.rw</p>
+                  <p className="text-gray-600">24/7 Emergency Assistance: 122</p>
                 </div>
               </div>
 
@@ -199,8 +199,8 @@ const Contact = () => {
                   <h3 className="text-lg font-semibold text-gray-800">
                     Legal Hotline
                   </h3>
-                  <p className="text-gray-600">24/7 Assistance: 0800 555 5555</p>
-                  <p className="text-gray-600">Legal Advice: 0800 555 5556</p>
+                  <p className="text-gray-600">Ambulance: 912, Gender-Based Violence (GBV) & Child Protection Hotline: 3512 </p>
+                  <p className="text-gray-600">Isange One Stop Center (GBV & Domestic Violence Support - 24/7): 3512</p>
                 </div>
               </div>
 
@@ -215,8 +215,8 @@ const Contact = () => {
                   <h3 className="text-lg font-semibold text-gray-800">
                     Office Location
                   </h3>
-                  <p className="text-gray-600">123 Justice Avenue</p>
-                  <p className="text-gray-600">Courthouse District, JD 12345</p>
+                  <p className="text-gray-600">📍 Kacyiru District Hospital, Kigali</p>
+                  <p className="text-gray-600">📞 3512 (Toll-Free, Available 24/7)</p>
                 </div>
               </div>
             </div>
