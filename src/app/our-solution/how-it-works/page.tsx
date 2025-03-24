@@ -136,7 +136,7 @@ export default function HowItWorks() {
               <h3 className="text-2xl font-bold text-red-700 mb-4">
                 24/7 National GBV Hotline
               </h3>
-              <p className="text-3xl font-mono text-red-900 mb-6">1-800-799-SAFE</p>
+              <p className="text-3xl font-mono text-red-900 mb-6">3512</p>
               <div className="grid md:grid-cols-3 gap-4">
                 <a href="/emergency" className="bg-white p-4 rounded-xl hover:bg-red-100 transition-colors">
                   Emergency Shelter Locator
@@ -205,12 +205,12 @@ export default function HowItWorks() {
                 safety with secure communication channels and anonymous reporting options.
               </p>
               <div className="flex justify-center gap-6">
-                <button className="bg-purple-600 text-white px-8 py-3 rounded-full hover:bg-purple-700">
+{/*                 <button className="bg-purple-600 text-white px-8 py-3 rounded-full hover:bg-purple-700">
                   Anonymous Report
-                </button>
-                <button className="border-2 border-purple-600 text-purple-600 px-8 py-3 rounded-full hover:bg-purple-50">
+                </button> */}
+{/*                 <button className="border-2 border-purple-600 text-purple-600 px-8 py-3 rounded-full hover:bg-purple-50">
                   Learn About Privacy
-                </button>
+                </button> */}
               </div>
             </div>
           </div>
