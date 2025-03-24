@@ -158,7 +158,7 @@ export default function GetStarted() {
               transition={{ repeat: Infinity, duration: 2 }}
             >
               <h2 className="text-3xl font-bold mb-4">Emergency Assistance</h2>
-              <p className="text-xl mb-4">24/7 National Hotline: 1-800-799-SAFE</p>
+              <p className="text-xl mb-4">24/7 National Hotline: 3512</p>
               <button className="bg-white text-red-500 px-6 py-2 rounded-full">
                 Immediate Help
               </button>
