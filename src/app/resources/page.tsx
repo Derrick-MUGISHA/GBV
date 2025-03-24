@@ -17,69 +17,70 @@ const Resources = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const resourceCategories = [
+ const resourceCategories = [
     {
       title: "Emergency Contacts",
       icon: <FiPhoneForwarded className="w-8 h-8 text-pink-600" />,
       items: [
         {
-      title: "24/7 GBV & Child Protection Hotline",
-      description: "Immediate support for gender-based violence survivors",
-      contact: "3512"
-    },
+          title: "24/7 GBV & Child Protection Hotline",
+          description: "Immediate support for gender-based violence survivors",
+          contact: "3512",
+        },
         {
-      title: "Police Emergency",
-      description: "For immediate security and protection assistance",
-      contact: "112"
-    },
-     {
-      title: "Medical Emergency (SAMU)",
-      description: "Ambulance and urgent medical response",
-      contact: "912"
-    },
-      ]
+          title: "Police Emergency",
+          description: "For immediate security and protection assistance",
+          contact: "112",
+        },
+        {
+          title: "Medical Emergency (SAMU)",
+          description: "Ambulance and urgent medical response",
+          contact: "912",
+        },
+      ],
     },
     {
       title: "Legal Assistance",
       icon: <FiShield className="w-8 h-8 text-purple-600" />,
-      ite {
-      title: "Rwanda Legal Aid Forum",
-      description: "Free legal representation and advice",
-      contact: "+250 788 385 482"
-    },
-    {
-      title: "Isange One Stop Center",
-      description: "Comprehensive legal and medical support for GBV survivors",
-      contact: "3512"
-    },
-    {
-      title: "Rwanda Bar Association",
-      description: "Legal services and pro bono lawyers",
-      contact: "info@rwandabar.org.rw"
-    }
-      ]
+      items: [
+        {
+          title: "Rwanda Legal Aid Forum",
+          description: "Free legal representation and advice",
+          contact: "+250 788 385 482",
+        },
+        {
+          title: "Isange One Stop Center",
+          description: "Comprehensive legal and medical support for GBV survivors",
+          contact: "3512",
+        },
+        {
+          title: "Rwanda Bar Association",
+          description: "Legal services and pro bono lawyers",
+          contact: "info@rwandabar.org.rw",
+        },
+      ],
     },
     {
       title: "Support Services",
       icon: <FiHeart className="w-8 h-8 text-pink-600" />,
       items: [
         {
-      title: "Isange One Stop Centers",
-      description: "Free counseling, medical, and legal services",
-      contact: "Available at district hospitals"
+          title: "Isange One Stop Centers",
+          description: "Free counseling, medical, and legal services",
+          contact: "Available at district hospitals",
+        },
+        {
+          title: "Rwanda Psychological Society",
+          description: "Certified trauma-informed therapy sessions",
+          contact: "+250 788 307 392",
+        },
+        {
+          title: "Women’s Support Groups",
+          description: "Peer-led community meetings for survivors",
+          contact: "info@womenforchange.rw",
+        },
+      ],
     },
-    {
-      title: "Rwanda Psychological Society",
-      description: "Certified trauma-informed therapy sessions",
-      contact: "+250 788 307 392"
-    },
-    {
-      title: "Women’s Support Groups",
-      description: "Peer-led community meetings for survivors",
-      contact: "info@womenforchange.rw"
-    }
-      ]
-    }
   ];
 
   // SVG animation for the changing world
@@ -257,22 +258,18 @@ const Resources = () => {
               <FiBook className="w-12 h-12 text-purple-600 mx-auto mb-4" />
               <h3 className="text-xl font-semibold mb-2">Educational Materials</h3>
               <p className="text-gray-600 mb-4">
-                Download our safety planning guides and legal rights handbooks
+                view our safety planning guides and legal rights handbooks
               </p>
-              <Button className="bg-purple-600 text-white hover:bg-purple-700">
-                Download Resources
-              </Button>
+<span className="bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 cursor-pointer">View Resources</span>
             </div>
 
             <div className="text-center p-6 hover:bg-purple-50 rounded-xl">
               <FiHeart className="w-12 h-12 text-pink-600 mx-auto mb-4" />
               <h3 className="text-xl font-semibold mb-2">Community Forum</h3>
               <p className="text-gray-600 mb-4">
-                Connect with survivors in our moderated support community
+                Connect with survivors in our moderated support community 
               </p>
-              <Button className="bg-pink-600 text-white hover:bg-pink-700">
-                Join Community
-              </Button>
+<span className="bg-pink-600 text-white py-2 px-4 rounded-lg hover:bg-pink-700 cursor-pointer">View our Community</span>
             </div>
 
             <div className="text-center p-6 hover:bg-purple-50 rounded-xl">
@@ -290,7 +287,7 @@ const Resources = () => {
       </div>
 
       {/* Safety Footer */}
-      <div className="bg-purple-900 text-white py-8 text-center">
+{/*       <div className="bg-purple-900 text-white py-8 text-center">
         <div className="max-w-4xl mx-auto px-4">
           <p className="text-lg mb-4">
             <strong>Remember:</strong> Your browser history can be monitored. 
@@ -300,7 +297,7 @@ const Resources = () => {
             Quick Exit
           </Button>
         </div>
-      </div>
+      </div> */}
       
       {/* CSS for animations */}
       <style jsx>{`
