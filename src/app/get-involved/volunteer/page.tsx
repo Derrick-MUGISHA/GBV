@@ -98,13 +98,14 @@ export default function Volunteer() {
           >
             Join 2,500+ advocates transforming lives through direct action, education, and policy reform
           </motion.p>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="bg-white text-purple-700 px-10 py-4 rounded-full text-xl font-bold shadow-xl hover:shadow-2xl transition-all"
-          >
-            Start Your Journey
-          </motion.button>
+          <motion.span
+  whileHover={{ scale: 1.05 }}
+  whileTap={{ scale: 0.95 }}
+  className="bg-purple-100 text-purple-700 px-4 py-2 rounded-full text-lg font-semibold shadow-md hover:shadow-lg transition-all cursor-pointer"
+>
+  Start Your Journey
+</motion.span>
+
         </div>
       </motion.section>
 
