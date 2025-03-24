@@ -1,7 +1,7 @@
 "use client"
 import React, { useEffect, useState } from 'react';
 import { FiHeart, FiShield, FiBook, FiPhoneForwarded, FiGlobe } from 'react-icons/fi';
-import { Button } from '@/components/ui/button';
+// import { Button } from '@/components/ui/button';
 import Footer from '../Footer/page';
 import Navigation from '../navigation/page';
 
